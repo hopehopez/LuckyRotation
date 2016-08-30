@@ -15,6 +15,7 @@
 		7C077BD81D75C625004E3E9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C077BD61D75C625004E3E9E /* LaunchScreen.storyboard */; };
 		7C077BE11D75C69D004E3E9E /* WheelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C077BE01D75C69D004E3E9E /* WheelView.m */; };
 		7C077BE31D75C6BC004E3E9E /* WheelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C077BE21D75C6BC004E3E9E /* WheelView.xib */; };
+		7C077BE61D75E096004E3E9E /* WheelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C077BE51D75E096004E3E9E /* WheelButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,8 @@
 		7C077BDF1D75C69D004E3E9E /* WheelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WheelView.h; sourceTree = "<group>"; };
 		7C077BE01D75C69D004E3E9E /* WheelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WheelView.m; sourceTree = "<group>"; };
 		7C077BE21D75C6BC004E3E9E /* WheelView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WheelView.xib; sourceTree = "<group>"; };
+		7C077BE41D75E096004E3E9E /* WheelButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WheelButton.h; sourceTree = "<group>"; };
+		7C077BE51D75E096004E3E9E /* WheelButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WheelButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +74,8 @@
 				7C077BDF1D75C69D004E3E9E /* WheelView.h */,
 				7C077BE01D75C69D004E3E9E /* WheelView.m */,
 				7C077BE21D75C6BC004E3E9E /* WheelView.xib */,
+				7C077BE41D75E096004E3E9E /* WheelButton.h */,
+				7C077BE51D75E096004E3E9E /* WheelButton.m */,
 				7C077BD41D75C625004E3E9E /* Assets.xcassets */,
 				7C077BD61D75C625004E3E9E /* LaunchScreen.storyboard */,
 				7C077BD91D75C625004E3E9E /* Info.plist */,
@@ -160,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C077BD01D75C625004E3E9E /* ViewController.m in Sources */,
+				7C077BE61D75E096004E3E9E /* WheelButton.m in Sources */,
 				7C077BCD1D75C625004E3E9E /* AppDelegate.m in Sources */,
 				7C077BE11D75C69D004E3E9E /* WheelView.m in Sources */,
 				7C077BCA1D75C625004E3E9E /* main.m in Sources */,

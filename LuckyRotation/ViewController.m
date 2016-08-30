@@ -34,5 +34,6 @@
 }
 
 - (IBAction)stop:(id)sender {
+    [self.wheelView stop];
 }
 @end
