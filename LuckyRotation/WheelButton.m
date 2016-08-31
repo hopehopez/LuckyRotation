@@ -32,6 +32,15 @@
 //    return contentRect;
 //}
 
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
+    CGRect rect = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height* 0.5);
+    if (CGRectContainsPoint(rect, point)) {
+        return [super hitTest:point withEvent:event];
+    }else {
+        return nil;
+    }
+}
+
 //取消高亮状态下作的事
 - (void)setHighlighted:(BOOL)highlighted{
     

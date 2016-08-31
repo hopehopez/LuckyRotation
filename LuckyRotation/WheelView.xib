@@ -22,7 +22,7 @@
                     <state key="normal" image="LuckyCenterButton"/>
                     <state key="highlighted" image="LuckyCenterButtonPressed"/>
                     <connections>
-                        <action selector="startRotation:" destination="iN0-l3-epB" eventType="touchUpInside" id="hdB-NE-Bg0"/>
+                        <action selector="startChose:" destination="iN0-l3-epB" eventType="touchUpInside" id="kcS-on-d5e"/>
                     </connections>
                 </button>
             </subviews>

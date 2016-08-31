@@ -22,12 +22,12 @@
 @implementation WheelView
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 - (CADisplayLink *)link{
     if (_link == nil) {
         //添加定时器, 保持一直旋转
@@ -63,11 +63,11 @@
     CGFloat clipH = oriImage.size.height * 2;
     
     
-
+    
     for (int i = 0; i<12; i++) {
         WheelButton *btn = [WheelButton buttonWithType:UIButtonTypeCustom];
         btn.bounds = CGRectMake(0, 0, btnW, btnH);
-
+        
         //设置按钮旋转状态下的背景图片
         [btn setBackgroundImage:[UIImage imageNamed:@"LuckyRototeSelected"] forState:UIControlStateSelected];
         
@@ -102,32 +102,28 @@
 }
 - (void)btnClick:(WheelButton *)btn{
     
-//    for (UIView *view in self.contentV.subviews) {
-//        if ([view isKindOfClass:[UIButton class]]) {
-//            UIButton *button = (UIButton *)view;
-//            button.selected = NO;
-//        }
-//    }
+    //    for (UIView *view in self.contentV.subviews) {
+    //        if ([view isKindOfClass:[UIButton class]]) {
+    //            UIButton *button = (UIButton *)view;
+    //            button.selected = NO;
+    //        }
+    //    }
     self.selectedBtn.selected = NO;
     
     btn.selected = YES;
     
     self.selectedBtn = btn;
 }
-- (IBAction)startRotation:(UIButton *)sender {
-    
-    [self rotation];
-}
 
 //让转盘开始旋转
 - (void)rotation{
-//    CABasicAnimation *anim = [CABasicAnimation animation];
-//    anim.keyPath = @"transform.rotation";
-//    anim.toValue = @(M_PI * 3);
-//    anim.duration = 5;
-//    anim.repeatCount = MAXFLOAT;
-//    
-//    [self.contentV.layer addAnimation:anim forKey:nil];
+    //    CABasicAnimation *anim = [CABasicAnimation animation];
+    //    anim.keyPath = @"transform.rotation";
+    //    anim.toValue = @(M_PI * 3);
+    //    anim.duration = 5;
+    //    anim.repeatCount = MAXFLOAT;
+    //
+    //    [self.contentV.layer addAnimation:anim forKey:nil];
     
     
     self.link.paused = NO;
@@ -140,5 +136,33 @@
 
 - (void)stop{
     self.link.paused = YES;
+}
+
+//开始选号
+- (IBAction)startChose:(id)sender {
+    CABasicAnimation *anim = [CABasicAnimation animation];
+    anim.keyPath = @"transform.rotation";
+    anim.toValue = @(M_PI * 4);
+    anim.duration = 0.5;
+    anim.delegate = self;
+    [self.contentV.layer addAnimation:anim forKey:nil];
+    
+    //动画结束时当前选中的按钮指向最上方
+}
+
+//非正式协议
+//以分类的形式添加协议
+
+- (void)animationDidStart:(CAAnimation *)anim{
+    
+}
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
+    CGAffineTransform transform = self.selectedBtn.transform;
+    //通过transform获取当前旋转的一个度数
+    CGFloat angle = atan2(transform.b, transform.a);
+    
+    NSLog(@"%f", angle);
+    
+    self.contentV.transform = CGAffineTransformMakeRotation(-angle);
 }
 @end
