@@ -17,6 +17,20 @@
     // Drawing code
 }
 */
+//返回当前按钮当中图片的位置尺寸
+//当前按钮的位置尺寸
+- (CGRect)imageRectForContentRect:(CGRect)contentRect{
+    CGFloat w = 40;
+    CGFloat h = 48;
+    CGFloat x = (contentRect.size.width - w) * 0.5;
+    CGFloat y = 20;
+
+    return CGRectMake(x, y, w, h);
+}
+
+//- (CGRect)titleRectForContentRect:(CGRect)contentRect{
+//    return contentRect;
+//}
 
 //取消高亮状态下作的事
 - (void)setHighlighted:(BOOL)highlighted{

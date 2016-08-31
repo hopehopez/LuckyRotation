@@ -16,6 +16,8 @@
 
 @property (nonatomic, strong) WheelButton *selectedBtn;
 
+@property (nonatomic, strong) CADisplayLink *link;
+
 @end
 @implementation WheelView
 
@@ -26,6 +28,15 @@
     // Drawing code
 }
 */
+- (CADisplayLink *)link{
+    if (_link == nil) {
+        //添加定时器, 保持一直旋转
+        _link = [CADisplayLink displayLinkWithTarget:self selector:@selector(update)];
+        [_link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    }
+    return _link;
+}
+
 + (instancetype)wheelView{
     return  [[[NSBundle mainBundle] loadNibNamed:@"WheelView" owner:nil options:nil] lastObject];
 }
@@ -40,12 +51,37 @@
     CGFloat btnW = 68;
     CGFloat btnH = 143;
     CGFloat angle = 0;
+    
+    //加载原始大图
+    UIImage *oriImage = [UIImage imageNamed:@"LuckyAstrology"];
+    UIImage *oriSelectedImage = [UIImage imageNamed:@"LuckyAstrologyPressed"];
+    
+    CGFloat x = 0;
+    CGFloat y = 0;
+    NSLog(@"%f",[UIScreen mainScreen].scale);
+    CGFloat clipW = oriImage.size.width / 12.0 * 2;
+    CGFloat clipH = oriImage.size.height * 2;
+    
+    
+
     for (int i = 0; i<12; i++) {
         WheelButton *btn = [WheelButton buttonWithType:UIButtonTypeCustom];
         btn.bounds = CGRectMake(0, 0, btnW, btnH);
 
-        //设置按钮旋转状态下的图片
-        [btn setImage:[UIImage imageNamed:@"LuckyRototeSelected"] forState:UIControlStateSelected];
+        //设置按钮旋转状态下的背景图片
+        [btn setBackgroundImage:[UIImage imageNamed:@"LuckyRototeSelected"] forState:UIControlStateSelected];
+        
+        //设置按钮正常状态下的图片
+        //给定一张图片, 截取指定区域范围内的图片
+        x = i * clipW;
+        //CGImageCreateWithImageInRect, 使用的坐标都是以一像素点
+        CGImageRef clipImage = CGImageCreateWithImageInRect(oriImage.CGImage, CGRectMake(x, y, clipW, clipH));
+        [btn setImage:[UIImage imageWithCGImage:clipImage] forState:UIControlStateNormal];
+        
+        CGImageRef clipSelectedImage = CGImageCreateWithImageInRect(oriSelectedImage.CGImage, CGRectMake(x, y, clipW, clipH));
+        [btn setImage:[UIImage imageWithCGImage:clipSelectedImage] forState:UIControlStateSelected];
+        
+        
         
         //设置按钮位置
         btn.layer.anchorPoint = CGPointMake(0.5, 1);
@@ -58,6 +94,10 @@
         [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         
         [self.contentV addSubview:btn];
+        
+        if (i == 0) {
+            [self btnClick:btn];
+        }
     }
 }
 - (void)btnClick:(WheelButton *)btn{
@@ -74,18 +114,31 @@
     
     self.selectedBtn = btn;
 }
+- (IBAction)startRotation:(UIButton *)sender {
+    
+    [self rotation];
+}
 
 //让转盘开始旋转
 - (void)rotation{
-    CABasicAnimation *anim = [CABasicAnimation animation];
-    anim.keyPath = @"transform.rotation";
-    anim.toValue = @(M_PI * 3);
-    anim.duration = 1;
-    anim.repeatCount = MAXFLOAT;
+//    CABasicAnimation *anim = [CABasicAnimation animation];
+//    anim.keyPath = @"transform.rotation";
+//    anim.toValue = @(M_PI * 3);
+//    anim.duration = 5;
+//    anim.repeatCount = MAXFLOAT;
+//    
+//    [self.contentV.layer addAnimation:anim forKey:nil];
     
-    [self.contentV.layer addAnimation:anim forKey:nil];
+    
+    self.link.paused = NO;
+    
 }
+
+- (void)update{
+    self.contentV.transform = CGAffineTransformRotate(self.contentV.transform, M_PI/300);
+}
+
 - (void)stop{
-    [self.contentV.layer removeAllAnimations];
+    self.link.paused = YES;
 }
 @end
